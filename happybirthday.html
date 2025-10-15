@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SELAMAT HARI TUA
+  </title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffe6f2, #fff);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Gift Box */
+    .gift-box {
+      width: 150px;
+      height: 100px;
+      background: #ff4d88;
+      position: relative;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transition: transform 0.4s, opacity 0.8s ease;
+    }
+
+    .gift-box:active {
+      transform: scale(0.98);
+    }
+
+    .lid {
+      width: 170px;
+      height: 25px;
+      background: #ff80aa;
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 8px;
+      transition: transform 0.6s ease;
+    }
+
+    .ribbon {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 15px;
+      height: 100%;
+      background: rgba(255,255,255,0.5);
+      border-radius: 5px;
+    }
+
+    /* Message box */
+    .message {
+      width: 85%;
+      max-width: 400px;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 1s ease;
+      margin-top: 30px;
+      z-index: 3;
+    }
+
+    .message.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    h1 {
+      color: #ff4d88;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    p {
+      color: #333;
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .heart {
+      color: #ff4d88;
+      font-size: 24px;
+      animation: beat 1s infinite;
+      margin-top: 10px;
+    }
+
+    @keyframes beat {
+      0%,100% {transform: scale(1);}
+      50% {transform: scale(1.2);}
+    }
+
+    /* Flowers */
+    .flower {
+      position: absolute;
+      top: -50px;
+      color: #ff7eb9;
+      font-size: 20px;
+      animation: fall linear forwards;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 18px; }
+      p { font-size: 14px; }
+      .gift-box { width: 130px; height: 90px; }
+      .lid { width: 150px; height: 22px; top: -12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="gift-box" id="giftBox">
+      <div class="lid" id="lid"></div>
+      <div class="ribbon"></div>
+    </div>
+
+    <div class="message" id="messageBox">
+      <h1>🎂 HAPPY BIRTHDAYY BELLA🌸</h1>
+      <p>
+        SELAMAT HARI JADII..Semoga Allah limpahkan rezeki, kesihatan dan kebahagiaan dalam setiap langkah hidup.🤍
+        Terima kasih sebab pernah buat adib tersenyum walaupun bella tak sedar pun.
+        You’re truly a blessing in disguise. And honestly, if smiles were stars, yours would light up my whole sky💫...Onyonyoynyo blushing tak HAHAHAHAH
+        Style kan wish pakai coding jer HAHAHAHAHAHA. Orang sekarang tak wish taip kat WS dah.😜<br><br>
+      </p>
+    </div>
+  </div>
+
+  <!-- Piano music -->
+  <audio id="pianoMusic" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2023/04/06/audio_1db7f8b6f1.mp3?filename=romantic-piano-soft-background-music-144997.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const box = document.getElementById("giftBox");
+    const lid = document.getElementById("lid");
+    const message = document.getElementById("messageBox");
+    const music = document.getElementById("pianoMusic");
+
+    box.addEventListener("click", () => {
+      // buka kotak
+      lid.style.transform = "translateX(-50%) rotate(-25deg) translateY(-100px)";
+      // mainkan muzik
+      music.play();
+      // bunga mula jatuh
+      startFlowers();
+      // hilangkan kotak selepas 1.2s
+      setTimeout(() => {
+        box.style.opacity = "0";
+        box.style.pointerEvents = "none";
+      }, 1200);
+      // paparkan mesej
+      setTimeout(() => {
+        message.classList.add("show");
+      }, 1400);
+    });
+
+    // bunga jatuh animasi
+    const flowers = ["🌸", "💮", "🌺", "🌷", "🌼"];
+    function createFlower() {
+      const flower = document.createElement("div");
+      flower.classList.add("flower");
+      flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+      flower.style.left = Math.random() * 100 + "vw";
+      flower.style.animationDuration = 5 + Math.random() * 5 + "s";
+      flower.style.fontSize = 18 + Math.random() * 10 + "px";
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 10000);
+    }
+
+    function startFlowers() {
+      const interval = setInterval(createFlower, 350);
+      setTimeout(() => clearInterval(interval), 8000);
+    }
+  </script>
+</body>
+</html>
